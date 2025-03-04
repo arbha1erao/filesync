@@ -6,3 +6,7 @@ lint:
 	@(cd server && golangci-lint run)
 
 	@echo "Linting completed!"
+
+clean:
+	rm -rf ./server/server_storage
+	rm -rf ./client/local_storage
