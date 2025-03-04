@@ -73,10 +73,15 @@ func (s *Server) SendInitialFiles(ws *websocket.Conn) {
 			log.Printf("[ERROR] Reading file %s: %v", f.Name(), err)
 			continue
 		}
-		ws.WriteJSON(map[string]interface{}{
+
+		err = ws.WriteJSON(map[string]interface{}{
 			"filename": f.Name(),
 			"content":  string(content),
 		})
+		if err != nil {
+			log.Printf("[ERROR] Writing JSON to WebSocket: %v", err)
+			return
+		}
 	}
 }
 
